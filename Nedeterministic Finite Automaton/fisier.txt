@@ -1,0 +1,27 @@
+16
+0 1 a
+0 1 b
+0 2 a
+1 1 a
+1 1 b
+1 2 a
+1 3 b
+2 2 a
+2 4 b
+3 0 b
+3 3 a
+3 5 b
+4 2 a
+4 3 a
+5 4 b
+5 5 a
+2
+4 5
+5 0
+6
+7 aabbbab
+6 aaaaba
+5 aaabb
+10 baaaaaaaab
+7 abaaaaa
+10 bbaaaaaaaa

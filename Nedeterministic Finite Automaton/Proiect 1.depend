@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1426620397 source:f:\limbaje formale si automate\proiect 1\main.cpp
+	<iostream>
+	<fstream>
+	<map>
+
