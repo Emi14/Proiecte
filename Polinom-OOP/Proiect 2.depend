@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1428588721 source:f:\programare orientata pe obiecte\proiect 2\main.cpp
+	<iostream>
+	<fstream>
+	<cmath>
+
