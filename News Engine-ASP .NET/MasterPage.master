@@ -1,0 +1,112 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage"  %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <link href="Content/CSS/StyleSheet.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="DefaultJavaScript.js" ></script>
+
+
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+        
+      <nav class="navbar navbar-custom ">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="../BreakingNews.aspx">Breaking news </a>
+        </div>
+         
+          <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString='<%$ ConnectionStrings:DefaultConnection %>' SelectCommand="SELECT [Id], [Name] FROM [Categories] ORDER BY [Name]"></asp:SqlDataSource>
+
+          <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          
+          <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="true"> Categorii <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                      <asp:Repeater ID="Repeater1" runat="server" DataSourceID="SqlDataSource1">
+                          <ItemTemplate>
+                              <li>
+                                  <a href="Home.aspx?category=<%#Eval("id") %>">
+                                      <%# Eval("name") %>
+                                  </a>
+                              </li>
+                          </ItemTemplate>
+                      </asp:Repeater>
+                  </ul>
+                </li>
+        </ul>
+
+              
+          
+        <div class="form-group col-md-2 searchBar ">
+            <asp:TextBox ID="TextBox1" CssClass="form-control" runat="server"></asp:TextBox>
+        </div>
+      <asp:Button CssClass="btn btn-default searchBar" ID="Button1" runat="server" Text="Search" OnClick="Button1_Click" />
+    
+        
+          <asp:LoginView runat="server" ViewStateMode="Disabled" >
+
+              <RoleGroups>
+              <asp:RoleGroup Roles="Editor" >
+                <ContentTemplate>
+                    <ul class="nav navbar-nav navbar-right">
+                    <li><a  runat="server" href="~/Aprove.aspx">Aprove article</a></li>
+                    <li><a  runat="server" href="~/AddArticle.aspx">Add article</a></li>
+                    <li><a  runat="server" href="~/AddLink.aspx">Add link</a></li>
+                        <li><a>Hello, <%:  Page.User.Identity.Name %>!</a></li>
+                                <li>
+                                    <asp:LoginStatus runat="server" OnLoggingOut="LogoutButton_Click" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/BreakingNews.aspx" />
+                                </li>
+                    </ul>
+                </ContentTemplate>
+                </asp:RoleGroup>
+
+                <asp:RoleGroup Roles="Administrator" >
+                <ContentTemplate>
+                    <ul class="nav navbar-nav navbar-right">
+                    <li><a  runat="server" href="~/AdministratorPanel.aspx" >Administrator panel</a></li>
+                        <li><a>Hello, <%:  Page.User.Identity.Name %>!</a></li>
+                                <li>
+                                    <asp:LoginStatus runat="server" OnLoggingOut="LogoutButton_Click" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/Home" />
+                                </li>
+                    </ul>
+                </ContentTemplate>
+              </asp:RoleGroup>
+              </RoleGroups>
+                        <AnonymousTemplate>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a runat="server" href="~\Account\Register.aspx">Register</a></li>
+                                <li><a runat="server" href="~\Account\Login.aspx">Log in</a></li>
+                            </ul>
+                        </AnonymousTemplate>
+                        <LoggedInTemplate>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a  runat="server" href="~/Article.aspx">Propose news</a></li>
+                                <li><a>Hello, <%:  Page.User.Identity.Name %>!</a></li>
+                                <li>
+                                    <asp:LoginStatus runat="server" OnLoggingOut="LogoutButton_Click" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/Home" />
+                                </li>
+                            </ul>
+                        </LoggedInTemplate>
+                    </asp:LoginView>
+      </div>
+          </div>
+</nav> 
+        <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+</body>
+</html>
